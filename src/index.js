@@ -86,3 +86,5 @@ class Sorcerer extends Character {
   sorcerer.showStatus();
   monster.showStatus();
 }
+
+//変更
