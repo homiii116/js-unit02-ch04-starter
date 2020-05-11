@@ -1,11 +1,25 @@
 class Character {
-  constructor() {
+  constructor(props) {
+    this.name = props.name
+    this.hp = props.hp
+    this.initialHp = props.initialHp
+    this.mp = props.mp
+    this.offensePower = props.offensePower
+    this.defencePower = props.defencePower
   }
 
   showStatus() {
     /* 
       キャラクターの名前、HP、MPを表示する。
     */
+    const mainEl = document.getElementById('main');
+    mainEl.innerHTML = `
+      <div class="characters>
+        <p>名前: ${Character.name}</p>
+        <p>体力: ${Character.hp}</p>
+        <p>魔法力: ${Character.mp}</p>
+      </div>
+    ` 
   }
 
   attack(defender) {
@@ -86,5 +100,3 @@ class Sorcerer extends Character {
   sorcerer.showStatus();
   monster.showStatus();
 }
-
-//変更
