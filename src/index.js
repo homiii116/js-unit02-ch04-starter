@@ -12,40 +12,46 @@ class Character {
     /* 
       キャラクターの名前、HP、MPを表示する。
     */
-   const mainEl = document.getElementById('main');
-    mainEl.innerHTML = `
-      <div class="characters>
-        <p>名前: ${Character.name}</p>
-        <p>体力: ${Character.hp}</p>
-        <p>魔法力: ${Character.mp}</p>
-      </div>`
+    const mainEl = document.getElementById('main');
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p>名前: ${this.name}</p>
+      <p>体力: ${this.hp}</p>
+      <p>魔法力: ${this.mp}</p>
+    `
+    mainEl.appendChild(div);
   }
 
   attack(defender) {
     /*
-      キャラクターが死んでいる場合は攻撃出来ないので、それを表示する。③
-      死んでいない場合は相手に与えたダメージを表示。①
-      相手が死んだ場合は相手に与えたダメージと死んだことを表示する。 ②
+      キャラクターが死んでいる場合は攻撃出来ないので、それを表示する。 ①
+      死んでいない場合は相手に与えたダメージを表示。　②
+      相手が死んだ場合は相手に与えたダメージと死んだことを表示する。 ③
     */
-    const attack = this.Character.find((name) => {  //攻撃するキャラクターを定義
-      return name === defender;
-    })
-    const text = document.getElementById('main');
-    if (Character.hp !== 0) {  //もしキャラクターのhpが元々０じゃなかったら、攻撃するキャラクターの攻撃力を表示　①
-      text.innerHTML = `
-      <div class="attack">
-        <p>${attack}は${attack.offensePower}を与えました。
-      </div>`
-    } else if (attack.offensePower >= Character.hp) { //もし、攻撃するキャラクターの攻撃力が、キャラクターのhpより大きかったら、攻撃力を表示し、倒したと表示。②
-      text.innerHTML = `
-      <div class="attack">
-        <p>${attack}は${attack.offensePower}を与え、倒しました。
-      </div>`
-    } else { //それ以外（元々キャラクターが死んでいたら）、既に死んでいると表示。③
-      text.innerHTML = `
-      <div class="attack">
-        <p>${Character.name}は既に死んでいます。
-      </div>`
+    const mainEl = document.getElementById('main');
+    const div = document.createElement('div');
+    if (this.hp <= 0) {  //①
+      div.innerHTML = `<p>${this.name}は死んでいる為、攻撃できません。`
+      mainEl.appendChild(div);
+      return;
+    }
+    
+    if (defender.hp <= 0) {  //①
+      div.innerHTML = `<p>${defender.name}は死んでいる為、攻撃できません。`
+      mainEl.appendChild(div);
+      return;
+    } 
+    
+    if (defender.hp >= 0) { //②
+      div.innerHTML = `${this.calcAttackDamage}を与えました。`
+      mainEl.appendChild(div);
+      return;
+    }
+
+    if (defender.hp <= 0) { //③
+      div.innerHTML = `${this.calcAttackDamage}を与え、${defender.name}を倒しました。`
+      mainEl.appendChild(div);
+      return;
     }
   }
 
