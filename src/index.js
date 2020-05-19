@@ -42,7 +42,7 @@ class Character {
       return;
     } 
     
-    if (defender.hp >= 0) { //②
+    if (defender.hp > 0) { //②
       div.innerHTML = `${this.calcAttackDamage}を与えました。`
       mainEl.appendChild(div);
       return;
@@ -60,32 +60,92 @@ class Character {
       ダメージは単純に攻撃力から防御力を引いて計算する。
       ダメージが0未満の場合は、最低のダメージ1を与える。
     */
+   const damage = `${this.offensePower} - ${defender.defencePower}`;
+   if (damage <= 0) {
+      damage = 1;
+      return;
+    }
   }
 }
 
 class Sorcerer extends Character {
-  constructor() {
-    
+  constructor(props) {
+    super(props);
   }
 
   healSpell(target) {
     /* 
-      回復魔法は3のMPを消費する。
-      相手のHPを15回復する。
-      魔法使いが死んでいる場合はその旨を表示する。
-      相手が死んでいる場合は回復が出来ないためその旨を表示する。
-      MPが足りない場合はその旨を表示する。
+      回復魔法は3のMPを消費する。③
+      相手のHPを15回復する。④
+      魔法使いが死んでいる場合はその旨を表示する。①
+      相手が死んでいる場合は回復が出来ないためその旨を表示する。②
+      MPが足りない場合はその旨を表示する。　⑤
     */
+    if (sorcerer.hp <= 0) {  //①
+      div.innerHTML = `${sorcerer.name}は死んでいる為、回復魔法は使えません。`
+      mainEl.appendChild(div);
+      return;
+    }
+
+    if (target.hp <= 0) {  //②
+      div.innerHTML = `${target.name}は死んでいる為、回復魔法は使えません。`
+      mainEl.appendChild(div);
+      return;
+    }
+
+    if (sorcerer.mp >= 3) { //③
+      sorcerer.mp - 3;
+      return;
+    }
+
+    if (sorcerer.mp >= 3) { //④
+      target.hp * 15;
+      return;
+    }
+
+    if (sorcerer.mp < 3) { //⑤
+      div.innerHTML = `MPが足りません。`
+      mainEl.appendChild(div);
+      return;
+    }
   }
 
   fireSpell(target) {
     /* 
       攻撃魔法は2のMPを消費する。
       相手に10のダメージを与える。
-      魔法使いが死んでいる場合はその旨を表示する。
-      相手が死んでいる場合は攻撃が出来ないためその旨を表示する。
-      MPが足りない場合はその旨を表示する。
+      魔法使いが死んでいる場合はその旨を表示する。 ①
+      相手が死んでいる場合は攻撃が出来ないためその旨を表示する。②
+      MPが足りない場合はその旨を表示する。③
     */
+    if (sorcerer.hp <= 0) { //①
+      div.innerHTML = `${sorcerer.name}は死んでいる為、攻撃魔法は使えません。`
+      mainEl.appendChild(div);
+      return;
+    }
+
+    if (target.hp <= 0) { //②
+      div.innerHTML = `${target.name}は死んでいる為、攻撃魔法は使えません。`
+      mainEl.appendChild(div);
+      return;
+    }
+
+    if (sorcerer.mp >= 2) { //③
+      sorcerer.mp - 2;
+      return;
+    }
+
+    if (sorcerer.mp >= 2) { //④
+      target.hp -10 ;
+      return;
+    }
+    
+    if (sorcerer.mp < 2) { //⑤
+      div.innerHTML = `MPが足りません。`
+      mainEl.appendChild(div);
+      return;
+    }
+
   }
 }
 
