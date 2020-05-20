@@ -41,18 +41,16 @@ class Character {
       mainEl.appendChild(div);
       return;
     } 
-    
-    if (defender.hp > 0) { //②
-      div.innerHTML = `${this.calcAttackDamage}を与えました。`
-      mainEl.appendChild(div);
-      return;
-    }
 
+    const damage = this.calcAttackDamage(defender);
+    defender.hp = defender.hp - damage;
+    
     if (defender.hp <= 0) { //③
-      div.innerHTML = `${this.calcAttackDamage}を与え、${defender.name}を倒しました。`
-      mainEl.appendChild(div);
-      return;
+      div.innerHTML = `${this.name}は${defender.name}にダメージ${damage}を与え、${defender.name}を倒しました。`
+    } else { //②
+      div.innerHTML = `${this.name}は${defender.name}にダメージ${damage}を与えました。`
     }
+    mainEl.appendChild(div);
   }
 
   calcAttackDamage(defender) {
@@ -60,11 +58,11 @@ class Character {
       ダメージは単純に攻撃力から防御力を引いて計算する。
       ダメージが0未満の場合は、最低のダメージ1を与える。
     */
-   const damage = `${this.offensePower} - ${defender.defencePower}`;
-   if (damage <= 0) {
+    let damage = this.offensePower - defender.defencePower;
+    if (damage <= 0) {
       damage = 1;
-      return;
     }
+    return damage;
   }
 }
 
@@ -81,33 +79,33 @@ class Sorcerer extends Character {
       相手が死んでいる場合は回復が出来ないためその旨を表示する。②
       MPが足りない場合はその旨を表示する。　⑤
     */
-    if (sorcerer.hp <= 0) {  //①
-      div.innerHTML = `${sorcerer.name}は死んでいる為、回復魔法は使えません。`
-      mainEl.appendChild(div);
-      return;
-    }
+  //   if (sorcerer.hp <= 0) {  //①
+  //     div.innerHTML = `${sorcerer.name}は死んでいる為、回復魔法は使えません。`
+  //     mainEl.appendChild(div);
+  //     return;
+  //   }
 
-    if (target.hp <= 0) {  //②
-      div.innerHTML = `${target.name}は死んでいる為、回復魔法は使えません。`
-      mainEl.appendChild(div);
-      return;
-    }
+  //   if (target.hp <= 0) {  //②
+  //     div.innerHTML = `${target.name}は死んでいる為、回復魔法は使えません。`
+  //     mainEl.appendChild(div);
+  //     return;
+  //   }
 
-    if (sorcerer.mp >= 3) { //③
-      sorcerer.mp - 3;
-      return;
-    }
+  //   if (sorcerer.mp >= 3) { //③
+  //     sorcerer.mp - 3;
+  //     return;
+  //   }
 
-    if (sorcerer.mp >= 3) { //④
-      target.hp * 15;
-      return;
-    }
+  //   if (sorcerer.mp >= 3) { //④
+  //     target.hp * 15;
+  //     return;
+  //   }
 
-    if (sorcerer.mp < 3) { //⑤
-      div.innerHTML = `MPが足りません。`
-      mainEl.appendChild(div);
-      return;
-    }
+  //   if (sorcerer.mp < 3) { //⑤
+  //     div.innerHTML = `MPが足りません。`
+  //     mainEl.appendChild(div);
+  //     return;
+  //   }
   }
 
   fireSpell(target) {
@@ -118,33 +116,33 @@ class Sorcerer extends Character {
       相手が死んでいる場合は攻撃が出来ないためその旨を表示する。②
       MPが足りない場合はその旨を表示する。③
     */
-    if (sorcerer.hp <= 0) { //①
-      div.innerHTML = `${sorcerer.name}は死んでいる為、攻撃魔法は使えません。`
-      mainEl.appendChild(div);
-      return;
-    }
+    // if (sorcerer.hp <= 0) { //①
+    //   div.innerHTML = `${sorcerer.name}は死んでいる為、攻撃魔法は使えません。`
+    //   mainEl.appendChild(div);
+    //   return;
+    // }
 
-    if (target.hp <= 0) { //②
-      div.innerHTML = `${target.name}は死んでいる為、攻撃魔法は使えません。`
-      mainEl.appendChild(div);
-      return;
-    }
+    // if (target.hp <= 0) { //②
+    //   div.innerHTML = `${target.name}は死んでいる為、攻撃魔法は使えません。`
+    //   mainEl.appendChild(div);
+    //   return;
+    // }
 
-    if (sorcerer.mp >= 2) { //③
-      sorcerer.mp - 2;
-      return;
-    }
+    // if (sorcerer.mp >= 2) { //③
+    //   sorcerer.mp - 2;
+    //   return;
+    // }
 
-    if (sorcerer.mp >= 2) { //④
-      target.hp -10 ;
-      return;
-    }
+    // if (sorcerer.mp >= 2) { //④
+    //   target.hp -10 ;
+    //   return;
+    // }
     
-    if (sorcerer.mp < 2) { //⑤
-      div.innerHTML = `MPが足りません。`
-      mainEl.appendChild(div);
-      return;
-    }
+    // if (sorcerer.mp < 2) { //⑤
+    //   div.innerHTML = `MPが足りません。`
+    //   mainEl.appendChild(div);
+    //   return;
+    // }
 
   }
 }
