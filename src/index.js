@@ -81,8 +81,8 @@ class Sorcerer extends Character {
     */
     const mainEl = document.getElementById('main');
     const div = document.createElement('div');
-    if (sorcerer.hp <= 0) {  //①
-      div.innerHTML = `${sorcerer.name}は死んでいる為、回復魔法は使えません。`
+    if (this.hp <= 0) {  //①
+      div.innerHTML = `${this.name}は死んでいる為、回復魔法は使えません。`
       mainEl.appendChild(div);
       return;
     }
@@ -93,20 +93,15 @@ class Sorcerer extends Character {
       return;
     }
 
-    if (sorcerer.mp >= 3) { //③
-      sorcerer.mp - 3;
-      return;
-    }
+    this.mp = this.mp - 3;
 
-    if (sorcerer.mp >= 3) { //④
-      target.hp * 15;
-      return;
-    }
-
-    if (sorcerer.mp < 3) { //⑤
-      div.innerHTML = `MPが足りません。`
+    if (this.mp >= 3) { //③
+      target.hp = target.hp + 15;
+      div.innerHTML = `${this.name}は魔法を使って${this.name}のMPを３消費し、${target.name}のHPを15回復させました。`
       mainEl.appendChild(div);
-      return;
+    } else {
+      div.innerHTML = `${this.name}のMPが足りません。`
+      mainEl.appendChild(div);
     }
   }
 
@@ -120,8 +115,8 @@ class Sorcerer extends Character {
     */
     const mainEl = document.getElementById('main');
     const div = document.createElement('div');
-    if (sorcerer.hp <= 0) { //①
-      div.innerHTML = `${sorcerer.name}は死んでいる為、攻撃魔法は使えません。`
+    if (this.hp <= 0) { //①
+      div.innerHTML = `${this.name}は死んでいる為、攻撃魔法は使えません。`
       mainEl.appendChild(div);
       return;
     }
@@ -132,22 +127,15 @@ class Sorcerer extends Character {
       return;
     }
 
-    if (sorcerer.mp >= 2) { //③
-      sorcerer.mp - 2;
-      return;
-    }
-
-    if (sorcerer.mp >= 2) { //④
-      target.hp -10 ;
-      return;
-    }
-    
-    if (sorcerer.mp < 2) { //⑤
-      div.innerHTML = `MPが足りません。`
+    this.mp = this.mp - 2;
+    if (this.mp >= 2) { //③
+      target.hp = target.hp -10;
+      div.innerHTML = `${this.name}は魔法を使って${this.name}のMPを２消費し、${target.name}にダメージ10を与えました。`
       mainEl.appendChild(div);
-      return;
+    } else {
+      div.innerHTML = `${this.name}のMPが足りません。`
+      mainEl.appendChild(div);
     }
-
   }
 }
 
@@ -178,7 +166,7 @@ class Sorcerer extends Character {
   sorcerer.attack(monster);
   monster.attack(sorcerer);
   fighter.attack(monster);
-  sorcerer.healSpell(sorcerer);
+  sorcerer.healSpell(fighter);
   monster.attack(fighter);
   fighter.attack(monster);
   sorcerer.fireSpell(monster);
