@@ -128,6 +128,7 @@ class Sorcerer extends Character {
     }
 
     this.mp = this.mp - 2;
+    
     if (this.mp >= 2) { //③
       target.hp = target.hp -10;
       div.innerHTML = `${this.name}は魔法を使って${this.name}のMPを２消費し、${target.name}にダメージ10を与えました。`
