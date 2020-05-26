@@ -91,18 +91,16 @@ class Sorcerer extends Character {
       div.innerHTML = `${target.name}は死んでいる為、回復魔法は使えません。`
       mainEl.appendChild(div);
       return;
-    }
-
-    this.mp = this.mp - 3;
+    } 
 
     if (this.mp >= 3) { //③
       target.hp = target.hp + 15;
+      this.mp = this.mp - 3;
       div.innerHTML = `${this.name}は魔法を使って${this.name}のMPを３消費し、${target.name}のHPを15回復させました。`
-      mainEl.appendChild(div);
     } else {
-      div.innerHTML = `${this.name}のMPが足りません。`
-      mainEl.appendChild(div);
+      div.innerHTML = `${this.name}のMPが足りません。`    
     }
+    mainEl.appendChild(div);
   }
 
   fireSpell(target) {
@@ -125,18 +123,16 @@ class Sorcerer extends Character {
       div.innerHTML = `${target.name}は死んでいる為、攻撃魔法は使えません。`
       mainEl.appendChild(div);
       return;
-    }
-
-    this.mp = this.mp - 2;
+    }  
     
     if (this.mp >= 2) { //③
       target.hp = target.hp -10;
+      this.mp = this.mp - 2;
       div.innerHTML = `${this.name}は魔法を使って${this.name}のMPを２消費し、${target.name}にダメージ10を与えました。`
-      mainEl.appendChild(div);
     } else {
-      div.innerHTML = `${this.name}のMPが足りません。`
-      mainEl.appendChild(div);
+      div.innerHTML = `${this.name}のMPが足りません。`   
     }
+    mainEl.appendChild(div);
   }
 }
 
